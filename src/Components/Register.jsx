@@ -1,5 +1,5 @@
 import React from "react";
-
+import  {User} from "../Components/Json/Json";
 export default function Register() {
 	return (
 		<div>
@@ -26,7 +26,7 @@ export default function Register() {
 							</div>
 							<div className="mt-4">
 								<label className="block" for="email">
-									Email
+									Email +{User.Id[0].name}
 								</label>
 								<input
 									type="text"
