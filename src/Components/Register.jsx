@@ -1,65 +1,75 @@
-import React,{useState}from "react";
-import {User} from './Json/Json';
+import React, { useState } from "react";
+import { User } from "./Json/Json";
+import { Link } from "react-router-dom";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 export default function Register() {
-
 	const [Registert, setRegistert] = useState({
-		name:'',
-		email:'',
-		password:'',
-		passerr:''
-	})
-	const handaleChangerEvent=(e)=>{
+		name: "",
+		email: "",
+		password: "",
+		passerr: "",
+	});
+	const handaleChangerEvent = (e) => {
 		let { name, value } = e.target;
-		return setRegistert({...Registert, [name]: value }),
-		console.log(Registert);
-	}
-const handaleSubmit=(e)=>{
-    e.preventDefault();
-    let nameErr='';
-	let passvalid='';
-    let emailErr='';
-    let emailRgex=RegExp(
-		/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-	  );
-	let randomNum=Math.floor(Math.random() * 100) + 1;
-    let passErr='';
-    let passRgex=RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
-    if(!Registert.name){
-        nameErr="Name Is Not Valid"
-        console.log(nameErr)
-    }
-	else if(Registert.password!==Registert.passerr){
-	 passvalid='Password Not match';
-	 console.log(passvalid);
-	}
-	else if(!passRgex.test(Registert.password)){
-		passErr='Password not valid at leat 8 character 1 latter and 1 digit';
-		console.log(passErr);
-	}
-	else if(!emailRgex.test(Registert.email)){
-		emailErr='email not valid';
-		console.log(emailErr);
-	}
-   if(!emailRgex.test(Registert.email)||!passRgex.test(Registert.password) || Registert.password!==Registert.passerr || !Registert.name)
-	{
-		console.log("Again try");
-	}
-	else{
-		let newReg=Registert;
-		User.Id.push({...newReg});
-        console.log(User);
-		console.log('every thing all right');
-	}
+		return (
+			setRegistert({ ...Registert, [name]: value }), console.log(Registert)
+		);
+	};
+	const handaleSubmit = (e) => {
+		e.preventDefault();
+		let nameErr = "";
+		let passvalid = "";
+		let emailErr = "";
+		let emailRgex = RegExp(
+			/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+		);
+		let randomNum = Math.floor(Math.random() * 100) + 1;
+		let passErr = "";
+		let passRgex = RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
+		if (!Registert.name) {
+			nameErr = "Name Is Not Valid";
+			console.log(nameErr);
+		} else if (Registert.password !== Registert.passerr) {
+			passvalid = "Password Not match";
+			console.log(passvalid);
+		} else if (!passRgex.test(Registert.password)) {
+			passErr = "Password not valid at leat 8 character 1 latter and 1 digit";
+			console.log(passErr);
+		} else if (!emailRgex.test(Registert.email)) {
+			emailErr = "email not valid";
+			console.log(emailErr);
+		}
+		if (
+			!emailRgex.test(Registert.email) ||
+			!passRgex.test(Registert.password) ||
+			Registert.password !== Registert.passerr ||
+			!Registert.name
+		) {
+			console.log("Again try");
+		} else {
+			let newReg = Registert;
+			User.Id.push({ ...newReg });
+			console.log(User);
+			console.log("every thing all right");
+		}
+	};
 
-}
-	
 	return (
 		<div>
 			<nav className="font-lg w-full text-white flex font-bold justify-start bg-blue-700 sticky">
-				<h3 className="m-1 p-2">Ecomerce</h3>
-				<h3 className="m-1 p-2">Login</h3>
-				<h4 className="m-1 p-2">Register</h4>
-				{}
+				<h3 className="m-1 p-2">
+					<Link to="/store">Ecomerce </Link>
+				</h3>
+				<h3 className="m-1 p-2">
+					{" "}
+					<Link to="/">
+						<AccountCircleOutlinedIcon />
+						Login
+					</Link>
+				</h3>
+				<h4 className="m-1 p-2">
+					<Link to="/register">Register</Link>
+				</h4>
 			</nav>
 			{/* {console.log(user)} */}
 			<div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -68,9 +78,7 @@ const handaleSubmit=(e)=>{
 					<form action="post" onSubmit={handaleSubmit}>
 						<div className="mt-4">
 							<div>
-								<label className="block" >
-									Name
-								</label>
+								<label className="block">Name</label>
 								<input
 									type="text"
 									name="name"
@@ -81,8 +89,8 @@ const handaleSubmit=(e)=>{
 								/>
 							</div>
 							<div className="mt-4">
-								<label className="block" >
-									Email 
+								<label className="block">
+									Email
 									{/* {User.Id[0].name} */}
 								</label>
 								<input
@@ -107,11 +115,9 @@ const handaleSubmit=(e)=>{
 							</div>
 							<div className="mt-4">
 								<label className="block">Confirm Password</label>
-								<span className="text-xs text-red-400">
-								{}
-							</span>
+								<span className="text-xs text-red-400">{}</span>
 								<input
-									type="password"  	
+									type="password"
 									name="passerr"
 									value={Registert.passerr}
 									onChange={handaleChangerEvent}
@@ -123,14 +129,24 @@ const handaleSubmit=(e)=>{
 								Password must be same!
 							</span>
 							<div className="flex">
-								<button type="submit"  value='submit'className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
+								<button
+									type="submit"
+									value="submit"
+									className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
+								>
 									Create Account
 								</button>
 							</div>
 							<div className="mt-6 text-grey-dark">
 								Already have an account?
-								<a className="text-blue-600 hover:underline" href="#">
-									Log in
+								<a className="text-blue-600 " >
+									<h3 className="">
+										{" "}
+										<Link to="/">
+											<AccountCircleOutlinedIcon />
+											Login
+										</Link>
+									</h3>
 								</a>
 							</div>
 						</div>

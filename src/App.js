@@ -1,39 +1,50 @@
 import React, { useEffect, useState } from "react";
-import data from './Components/Json';
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import { User } from "./Components/Json/Json";
+import { Link } from "react-router-dom";
 export default function App() {
-	const [data1, setData] = useState({
+	const [User1, setUser] = useState({
 		name: "",
 		password: "",
 	});
 	function handlechange(e) {
 		let { name, value } = e.target;
-		return setData({ ...data1, [name]: value }), console.log(data);
+		return setUser({ ...User1, [name]: value }), console.log(User);
 	}
 
 	const onSubmithandeler = (e) => {
 		e.preventDefault();
-		let names =data1.filter()
-		let passwords = data.password==data1.password;
+		let names = User1.filter();
+		let passwords = User.password == User1.password;
 		if (!names) {
 			console.log("invalide name");
 		} else if (!passwords) {
 			console.log("password invalid");
 		}
 		if (!names || !passwords) {
-			setData({ ...data, name: "", password: "" });
-			console.log(data);
+			setUser({ ...User, name: "", password: "" });
+			console.log(User);
 			console.log("all err");
 		} else {
-			console.log(data);
+			console.log(User);
 		}
 	};
 
 	return (
 		<div style={{ fontFamily: "roboto" }}>
 			<nav className="font-lg w-full text-white flex font-bold justify-start bg-blue-700 sticky">
-				<h3 className="m-1 p-2">Ecomerce</h3>
-				<h3 className="m-1 p-2">Login</h3>
-				<h4 className="m-1 p-2">Register</h4>
+				<h3 className="m-1 p-2">
+					<Link to="/store">Ecomerce </Link>
+				</h3>
+				<h3 className="m-1 p-2">
+					{" "}
+					<Link to="/">
+						<AccountCircleOutlinedIcon/>
+						Login</Link>
+				</h3>
+				<h4 className="m-1 p-2">
+					<Link to="/register">Register</Link>
+				</h4>
 			</nav>
 			<div className="bg-gray-300">
 				<div className="w-full h-screen flex items-center justify-center">
@@ -56,7 +67,7 @@ export default function App() {
 									<input
 										type="text"
 										name="name"
-										value={data.name}
+										value={User.name}
 										onChange={handlechange}
 										placeholder="Username"
 										className="-mx-6 px-8  w-full border rounded px-3 py-2 text-gray-700 focus:outline-blue-400"
@@ -68,7 +79,7 @@ export default function App() {
 									<input
 										type="text"
 										placeholder="Password"
-										value={data.password}
+										value={User.password}
 										name="password"
 										onChange={handlechange}
 										className="-mx-6 px-8 w-full border rounded px-3 py-2 text-gray-700 focus:outline-blue-400"
@@ -78,14 +89,10 @@ export default function App() {
 							<div className="flex items-center ">
 								<input
 									type="checkbox"
+									value={false}
 									className=" m-2 p-2 float-right focus:outline-blue-400"
 								/>
-								<a
-									href="#"
-									className="text-xs m-2 p-2 text-gray-500 float-right "
-								>
-									Forgot Password?
-								</a>
+								<Link to="/register">Forgot Password?</Link>
 							</div>
 							<button
 								type="submit"
